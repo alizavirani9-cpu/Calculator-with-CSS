@@ -1,48 +1,62 @@
-<Doctype html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8/>
-        <meta name="viewport" content="width=device-width,initial scale="1.0"/>
-        <title>calculator with Css</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-      <div class="calculator" id="calculator">
-        <div>
-        <input type="text">
-      </div>
-        <div class="buttons" id="function">
-          <button>MC</button>
-          <button>MR</button>
-          <button>M-</button>
-          <button>M+</button>
-        </div>
-        <div class="buttons" id="function">
-          <button>AC</button>
-          <button>C</button>
-          <button>±</button>
-        </div>
-        <div class="buttons" id="numbers">
-          <button>7</button>
-          <button>8</button>
-          <button>9</button>
-        </div>
-        <div class="buttons" id="numbers">
-          <button>4</button>
-          <button>5</button>
-          <button>6</button>
-        </div>
-        <div class="buttons" id="numbers>
-           <button>1</button>
-           <button>2</button>
-           <button>3</button>
-        </div>
-        <div class="buttons" id="operators">
-          <button>×</button>
-          <button>-</button>
-          <button>÷</button>
-        </div>
-      <div class="buttons" id="operators">
-  </body>
-  </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator with CSS</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="calculator" id="calculator" role="application" aria-label="Calculator">
+    <!-- Display -->
+    <div class="display" aria-label="Display">
+      <input type="text" value="0" aria-label="Calculator display" />
+    </div>
+
+    <!-- Button grid (4 columns x 6 rows approx for classic layout) -->
+    <div class="grid-buttons" aria-label="Calculator keypad">
+
+      <!-- Row 1: Memory functions (MC MR M- M+) -->
+      <button type="button" class="btn" aria-label="Memory Clear">MC</button>
+      <button type="button" class="btn" aria-label="Memory Recall">MR</button>
+      <button type="button" class="btn" aria-label="Memory Subtract">M−</button>
+      <button type="button" class="btn" aria-label="Memory Add">M+</button>
+
+      <!-- Row 2: Clear / Sign toggle / plus minus not exposed as separate grid items here -->
+      <!-- If you want them on a separate row, uncomment and adjust grid areas -->
+
+      <!-- Row 2 continuation: AC C ± -->
+      <button type="button" class="btn" aria-label="All Clear">AC</button>
+      <button type="button" class="btn" aria-label="Clear entry">C</button>
+      <button type="button" class="btn" aria-label="Toggle sign">±</button>
+      <button type="button" class="btn placeholder" aria-label="Unused" disabled></button>
+
+      <!-- Row 3: 7 8 9 ÷ (or × depending on your symbol) -->
+      <button type="button" class="btn" aria-label="Seven">7</button>
+      <button type="button" class="btn" aria-label="Eight">8</button>
+      <button type="button" class="btn" aria-label="Nine">9</button>
+      <button type="button" class="btn operator" aria-label="Divide">÷</button>
+
+      <!-- Row 4: 4 5 6 × -->
+      <button type="button" class="btn" aria-label=" Four">4</button>
+      <button type="button" class="btn" aria-label=" Five">5</button>
+      <button type="button" class="btn" aria-label=" Six">6</button>
+      <button type="button" class="btn operator" aria-label="Multiply">×</button>
+
+      <!-- Row 5: 1 2 3 − -->
+      <button type="button" class="btn" aria-label="One">1</button>
+      <button type="button" class="btn" aria-label="Two">2</button>
+      <button type="button" class="btn" aria-label="Three">3</button>
+      <button type="button" class="btn operator" aria-label="Subtract">−</button>
+
+      <!-- Row 6: 0 . = + (we'll place 0, then decimal if desired, then equals, then plus) -->
+      <button type="button" class="btn zero" aria-label="Zero">0</button>
+      <button type="button" class="btn" aria-label="Decimal point">.</button>
+      <button type="button" class="btn operator" aria-label="Equals" style="grid-column: span 2;">=</button>
+      <button type="button" class="btn operator" aria-label="Add">+</button>
+
+    </div>
+  </div>
+</body>
+</html>
 
