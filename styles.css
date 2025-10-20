@@ -1,1 +1,111 @@
+/* Basic Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f3f4f6;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
 
+/* Calculator container */
+.calculator {
+  width: min(420px, 92vw);
+  background: #111827;
+  border-radius: 14px;
+  padding: 0.75rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,.25);
+  color: #fff;
+}
+
+.display {
+  background: #0b1020;
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin: 0.25rem 0 0.75rem;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+.display input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.8rem;
+  text-align: right;
+  padding: 0.25rem 0;
+}
+
+.grid-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  padding: 0.25rem;
+}
+
+.btn {
+  height: 58px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  background: #1f2937;
+  color: #e5e7eb;
+  cursor: pointer;
+  transition: transform 0.08s ease-in-out, background 0.2s;
+}
+.btn:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+.btn:hover {
+  background: #374151;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn.operator {
+  background: #374151;
+}
+.btn.operator:hover {
+  background: #4b5563;
+}
+.btn.zero {
+  grid-column: span 2;
+  text-align: left;
+  padding-left: 1.5rem;
+}
+.btn.placeholder {
+  visibility: hidden;
+  /* keeps grid alignment if you need a placeholder cell */
+}
+
+/* Optional: small screen tweaks */
+@media (max-width: 420px) {
+  .calculator {
+    width: 100%;
+    padding: 0.5rem;
+  }
+  .display input {
+    font-size: 1.6rem;
+  }
+  .btn {
+    height: 52px;
+    font-size: 1rem;
+  }
+  .btn.zero {
+    grid-column: span 2;
+  }
+}
