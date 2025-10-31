@@ -1,62 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculator with CSS</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for aesthetic buttons and active states */
+        .calc-button {
+            /* Consistent button size and appearance */
+            @apply flex items-center justify-center p-4 rounded-full text-2xl font-semibold transition duration-150 ease-in-out shadow-lg;
+            height: 70px; /* Fixed height for visual consistency */
+        }
+
+        .calc-button:active {
+            transform: scale(0.95);
+            opacity: 0.85;
+        }
+
+        /* Set 'Inter' as the default font */
+        html {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Style the display for better contrast */
+        #display {
+            @apply w-full h-24 text-right text-white text-5xl p-4 mb-5 rounded-xl bg-gray-700 border-none;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+            /* Hide default focus ring */
+            outline: none;
+        }
+    </style>
 </head>
-<body>
-  <div class="calculator" id="calculator" role="application" aria-label="Calculator">
-    <!-- Display -->
-    <div class="display" aria-label="Display">
-      <input type="text" value="0" aria-label="Calculator display" />
+<body class="bg-gray-900 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Calculator Container -->
+    <div class="bg-gray-800 p-6 rounded-3xl shadow-2xl w-full max-w-sm">
+
+        <!-- Display Area -->
+        <input type="text" id="display" value="0" readonly>
+
+        <!-- Buttons Grid (5 rows, 4 columns) -->
+        <div class="grid grid-cols-4 gap-3">
+            <!-- Row 1: Utility and Divide -->
+            <button class="calc-button bg-gray-600 text-white hover:bg-gray-500" onclick="handleButtonClick('AC')">AC</button>
+            <button class="calc-button bg-gray-600 text-white hover:bg-gray-500" onclick="handleButtonClick('←')">←</button>
+            <button class="calc-button bg-orange-500 text-white hover:bg-orange-400" onclick="handleButtonClick('(')">(</button>
+            <button class="calc-button bg-orange-500 text-white hover:bg-orange-400" onclick="handleButtonClick('/')">/</button>
+
+            <!-- Row 2: Numbers 7, 8, 9 and Multiply -->
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('7')">7</button>
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('8')">8</button>
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('9')">9</button>
+            <button class="calc-button bg-orange-500 text-white hover:bg-orange-400" onclick="handleButtonClick('*')">*</button>
+
+            <!-- Row 3: Numbers 4, 5, 6 and Subtract -->
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('4')">4</button>
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('5')">5</button>
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('6')">6</button>
+            <button class="calc-button bg-orange-500 text-white hover:bg-orange-400" onclick="handleButtonClick('-')">-</button>
+
+            <!-- Row 4: Numbers 1, 2, 3 and Add -->
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('1')">1</button>
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('2')">2</button>
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('3')">3</button>
+            <button class="calc-button bg-orange-500 text-white hover:bg-orange-400" onclick="handleButtonClick('+')">+</button>
+
+            <!-- Row 5: Numbers 0, Decimal, Close Parenthesis, and Equals -->
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600 col-span-2" onclick="handleButtonClick('0')">0</button>
+            <button class="calc-button bg-gray-700 text-white hover:bg-gray-600" onclick="handleButtonClick('.')">.</button>
+            <button class="calc-button bg-green-500 text-white hover:bg-green-400" onclick="handleButtonClick('=')">=</button>
+        </div>
     </div>
 
-    <!-- Button grid (4 columns x 6 rows approx for classic layout) -->
-    <div class="grid-buttons" aria-label="Calculator keypad">
+    <script>
+        const display = document.getElementById('display');
+        let currentInput = '0';
+        let isResultDisplayed = false; // Flag to reset input after an equals operation
 
-      <!-- Row 1: Memory functions (MC MR M- M+) -->
-      <button type="button" class="btn" aria-label="Memory Clear">MC</button>
-      <button type="button" class="btn" aria-label="Memory Recall">MR</button>
-      <button type="button" class="btn" aria-label="Memory Subtract">M−</button>
-      <button type="button" class="btn" aria-label="Memory Add">M+</button>
+        // Function to update the display
+        function updateDisplay() {
+            // Cap the length to prevent overflow (e.g., 15 characters)
+            display.value = currentInput.length > 15 ? currentInput.substring(0, 15) + '...' : currentInput;
+        }
 
-      <!-- Row 2: Clear / Sign toggle / plus minus not exposed as separate grid items here -->
-      <!-- If you want them on a separate row, uncomment and adjust grid areas -->
+        // Function to handle all button clicks
+        function handleButtonClick(value) {
+            const isOperator = ['+', '-', '*', '/', '(', ')'].includes(value);
 
-      <!-- Row 2 continuation: AC C ± -->
-      <button type="button" class="btn" aria-label="All Clear">AC</button>
-      <button type="button" class="btn" aria-label="Clear entry">C</button>
-      <button type="button" class="btn" aria-label="Toggle sign">±</button>
-      <button type="button" class="btn placeholder" aria-label="Unused" disabled></button>
+            if (value === 'AC') {
+                // All Clear: Reset everything
+                currentInput = '0';
+                isResultDisplayed = false;
+            } else if (value === '←') {
+                // Backspace: Remove the last character
+                if (currentInput.length > 1) {
+                    currentInput = currentInput.slice(0, -1);
+                } else {
+                    currentInput = '0';
+                }
+                isResultDisplayed = false;
+            } else if (value === '=') {
+                // Calculate the result
+                try {
+                    // Use a function (Function constructor) for safer evaluation than direct eval(), 
+                    // though still requires care with input. We sanitize input by only allowing 
+                    // buttons defined in the HTML.
+                    const result = Function('"use strict";return (' + currentInput + ')')();
+                    
+                    // Format the result to a maximum of 10 decimal places to prevent float issues
+                    currentInput = parseFloat(result.toFixed(10)).toString();
+                    isResultDisplayed = true;
 
-      <!-- Row 3: 7 8 9 ÷ (or × depending on your symbol) -->
-      <button type="button" class="btn" aria-label="Seven">7</button>
-      <button type="button" class="btn" aria-label="Eight">8</button>
-      <button type="button" class="btn" aria-label="Nine">9</button>
-      <button type="button" class="btn operator" aria-label="Divide">÷</button>
+                } catch (e) {
+                    currentInput = 'Error';
+                    isResultDisplayed = true;
+                }
+            } else {
+                // Handling number/operator input
+                if (isResultDisplayed) {
+                    // If a result is displayed, a new number starts a new calculation.
+                    // An operator continues the current result.
+                    if (!isOperator && value !== '.') {
+                        currentInput = value;
+                    } else {
+                        // Continue calculation using the result
+                        isResultDisplayed = false; 
+                        currentInput += value;
+                    }
+                } else if (currentInput === '0' && value !== '.' && !isOperator && value !== '(') {
+                    // Start a new input if currently '0' and not pressing a decimal or operator
+                    currentInput = value;
+                } else {
+                    // Append the value to the current input string
+                    currentInput += value;
+                }
+                isResultDisplayed = false;
+            }
 
-      <!-- Row 4: 4 5 6 × -->
-      <button type="button" class="btn" aria-label=" Four">4</button>
-      <button type="button" class="btn" aria-label=" Five">5</button>
-      <button type="button" class="btn" aria-label=" Six">6</button>
-      <button type="button" class="btn operator" aria-label="Multiply">×</button>
+            updateDisplay();
+        }
 
-      <!-- Row 5: 1 2 3 − -->
-      <button type="button" class="btn" aria-label="One">1</button>
-      <button type="button" class="btn" aria-label="Two">2</button>
-      <button type="button" class="btn" aria-label="Three">3</button>
-      <button type="button" class="btn operator" aria-label="Subtract">−</button>
+        // Initialize display on load
+        updateDisplay();
+    </script>
 
-      <!-- Row 6: 0 . = + (we'll place 0, then decimal if desired, then equals, then plus) -->
-      <button type="button" class="btn zero" aria-label="Zero">0</button>
-      <button type="button" class="btn" aria-label="Decimal point">.</button>
-      <button type="button" class="btn operator" aria-label="Equals" style="grid-column: span 2;">=</button>
-      <button type="button" class="btn operator" aria-label="Add">+</button>
-
-    </div>
-  </div>
 </body>
 </html>
 
