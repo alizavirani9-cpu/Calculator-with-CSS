@@ -1,11 +1,90 @@
-/{
-    font-size: 1.6rem;
-  }
-  .btn {
-    height: 52px;
-    font-size: 1rem;
-  }
-  .btn.zero {
-    grid-column: span 2;
-  }
+/* Base Styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0; 
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* More professional font */
+}
+
+/* Calculator Container */
+.calculator {
+    width: 320px; /* Slightly wider */
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+    overflow: hidden; 
+    background-color: #333; 
+}
+
+/* Display Area */
+.calculator-display {
+    width: 100%;
+    height: 80px; /* Taller display */
+    background-color: #222;
+    color: #fff;
+    text-align: right;
+    padding: 15px;
+    font-size: 2.5em; /* Larger text */
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* Buttons Grid Container (4x5 layout) */
+.calculator-buttons {
+    display: grid;
+    /* Defines a clean 4-column grid */
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1px;
+    background-color: #555; /* Dark background for button gaps */
+}
+
+/* Base Button Styling */
+.btn {
+    padding: 20px 10px;
+    height: 70px; /* Fixed height */
+    font-size: 1.5em; /* Larger font */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    font-weight: 500;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Styling for Number and Decimal Buttons */
+.number, .decimal {
+    background-color: #666; 
+    color: #fff;
+}
+
+/* Styling for Operator Buttons */
+.operator {
+    background-color: #ff9500; /* Apple-style Orange */
+    color: #fff;
+}
+
+/* Styling for the Clear button (C) - Top Row */
+.clear {
+    background-color: #a6a6a6; /* Light grey */
+    color: #333;
+    /* Span three columns for C button */
+    grid-column: span 3;
+}
+
+/* Styling for the Equals button (=) */
+.equal {
+    background-color: #007aff; /* Apple-style Blue */
+    color: #fff;
+    /* This button sits in the 4th column, aligning with operators */
+}
+
+/* Positioning for the '0' button to take up two columns */
+.zero {
+    grid-column: span 2; 
+    /* The decimal button will naturally fall into the 3rd column */
 }
